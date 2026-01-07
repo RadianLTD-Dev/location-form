@@ -12,7 +12,7 @@
         function openForm(value) {
             var url = "https://docs.google.com/forms/d/e/1FAIpQLSdujepmvo3-rOwVgu--mApwRrbWljV2FgDbZdaOdsKf17R7iw/viewform?usp=pp_url&entry.1815314580=Location+Unavailable";
             window.location.href = url.replace(
-                "Location+unavailable",
+                "Location+Unavailable",
                 encodeURIComponent(value)
             );
         }
@@ -30,8 +30,8 @@
                         // Failed or denied
                         openForm("Location unavailable");
                     }, {
-                        enableHighAccuracy: false,
-                        timeout: 10000
+                        enableHighAccuracy: true,
+                        timeout: 15000
                     }
                 );
             } else {
