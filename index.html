@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Open Form with GPS</title>
+</head>
+
+<body>
+    <p>Fetching your location… Please allow location access.</p>
+
+    <script>
+        function openForm(value) {
+            var url = "https://docs.google.com/forms/d/e/1FAIpQLSdujepmvo3-rOwVgu--mApwRrbWljV2FgDbZdaOdsKf17R7iw/viewform?usp=pp_url&entry.1815314580=Location+Unavailable";
+            window.location.href = url.replace(
+                "Location+unavailable",
+                encodeURIComponent(value)
+            );
+        }
+
+        function getLocationAndRedirect() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(pos) {
+                        // Got GPS! Redirect now
+                        var lat = pos.coords.latitude.toFixed(6);
+                        var lng = pos.coords.longitude.toFixed(6);
+                        openForm(lat + "," + lng);
+                    },
+                    function() {
+                        // Failed or denied
+                        openForm("Location unavailable");
+                    }, {
+                        enableHighAccuracy: false,
+                        timeout: 10000
+                    }
+                );
+            } else {
+                openForm("Location unavailable");
+            }
+        }
+
+        // Wait until page fully loads
+        window.addEventListener("load", function() {
+            getLocationAndRedirect();
+        });
+    </script>
+</body>
+
+</html>
